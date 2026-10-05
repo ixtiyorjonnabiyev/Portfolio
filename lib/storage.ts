@@ -63,5 +63,17 @@ export const PortfolioStorage = {
     } else {
       sessionStorage.removeItem(AUTH_KEY);
     }
+  },
+
+  getLanguage(): 'en' | 'uz' | 'ru' {
+    if (typeof window === 'undefined') return 'en';
+    const saved = localStorage.getItem('ikhtiyorjon_portfolio_lang') as 'en' | 'uz' | 'ru' | null;
+    if (saved && (saved === 'en' || saved === 'uz' || saved === 'ru')) return saved;
+    return 'en';
+  },
+
+  setLanguage(lang: 'en' | 'uz' | 'ru'): void {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem('ikhtiyorjon_portfolio_lang', lang);
   }
 };

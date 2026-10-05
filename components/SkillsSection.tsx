@@ -2,13 +2,15 @@
 
 import React, { useState } from 'react';
 import { SkillCategory } from '@/lib/types';
-import { Code2, BarChart2, DollarSign, Languages, CheckCircle, Sparkles } from 'lucide-react';
+import { Translations } from '@/lib/i18n';
+import { Code2, BarChart2, DollarSign, Languages, Sparkles } from 'lucide-react';
 
 interface SkillsSectionProps {
   categories: SkillCategory[];
+  t: Translations['skills'];
 }
 
-export default function SkillsSection({ categories }: SkillsSectionProps) {
+export default function SkillsSection({ categories, t }: SkillsSectionProps) {
   const [activeCategory, setActiveCategory] = useState<number>(0);
 
   const getCategoryIcon = (title: string) => {
@@ -26,13 +28,13 @@ export default function SkillsSection({ categories }: SkillsSectionProps) {
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Technical & Domain Capabilities</span>
+            <span>{t.badge}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Interdisciplinary Skills Matrix
+            {t.title}
           </h2>
           <p className="mt-3 text-slate-400 text-sm sm:text-base">
-            Bridging international accounting standards (IFRS), quantitative economic modeling, and modern web application development.
+            {t.subtitle}
           </p>
         </div>
 
@@ -93,7 +95,7 @@ export default function SkillsSection({ categories }: SkillsSectionProps) {
         {/* All Categories at-a-glance tags below */}
         <div className="mt-14 pt-10 border-t border-slate-800/80">
           <h3 className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-4 text-center">
-            Complete Competency Spectrum
+            {t.spectrumTitle}
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-2">
             {categories.flatMap(c => c.skills).map((s, i) => (

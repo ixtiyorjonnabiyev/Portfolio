@@ -1,29 +1,50 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Shield, Lock, Unlock, Download, Menu, X, ExternalLink } from 'lucide-react';
+import { Lock, Unlock, Menu, X, Globe } from 'lucide-react';
+import { Language } from '@/lib/types';
+import { Translations } from '@/lib/i18n';
 
 interface NavbarProps {
   isAdmin: boolean;
   onOpenAdmin: () => void;
   onLockAdmin: () => void;
+  lang: Language;
+  onSelectLang: (lang: Language) => void;
+  t: Translations['nav'];
 }
 
-export default function Navbar({ isAdmin, onOpenAdmin, onLockAdmin }: NavbarProps) {
+export default function Navbar({
+  isAdmin,
+  onOpenAdmin,
+  onLockAdmin,
+  lang,
+  onSelectLang,
+  t
+}: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
 
   const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Education', href: '#education' },
-    { name: 'ACCA', href: '#acca' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Credentials', href: '#credentials' },
-    { name: 'Contact', href: '#contact' },
+    { name: t.about, href: '#about' },
+    { name: t.education, href: '#education' },
+    { name: t.acca, href: '#acca' },
+    { name: t.skills, href: '#skills' },
+    { name: t.projects, href: '#projects' },
+    { name: t.credentials, href: '#credentials' },
+    { name: t.contact, href: '#contact' },
   ];
 
+  const languages: { code: Language; label: string; flag: string; full: string }[] = [
+    { code: 'en', label: 'ENG', flag: '🇬🇧', full: 'English' },
+    { code: 'uz', label: 'UZB', flag: '🇺🇿', full: "O'zbekcha" },
+    { code: 'ru', label: 'RUS', flag: '🇷🇺', full: 'Русский' },
+  ];
+
+  const currentLangObj = languages.find(l => l.code === lang) || languages[0];
+
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-slate-950/80 border-b border-slate-800/80 transition-all">
+    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-slate-950/85 border-b border-slate-800/80 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
         {/* Logo / Monogram */}
@@ -51,7 +72,7 @@ export default function Navbar({ isAdmin, onOpenAdmin, onLockAdmin }: NavbarProp
             <a
               key={link.name}
               href={link.href}
-              className="px-3 py-1.5 text-xs lg:text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-colors"
+              className="px-2.5 lg:px-3 py-1.5 text-xs lg:text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-colors"
             >
               {link.name}
             </a>
@@ -60,6 +81,45 @@ export default function Navbar({ isAdmin, onOpenAdmin, onLockAdmin }: NavbarProp
 
         {/* Right Action Buttons */}
         <div className="hidden sm:flex items-center gap-3">
+          
+          {/* Language Switcher Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 text-xs font-semibold text-slate-200 hover:border-cyan-400/60 hover:text-white transition-all"
+              title="Change Language"
+            >
+              <span className="text-sm">{currentLangObj.flag}</span>
+              <span className="font-mono text-cyan-300">{currentLangObj.label}</span>
+              <Globe className="w-3.5 h-3.5 text-slate-400" />
+            </button>
+
+            {langDropdownOpen && (
+              <div 
+                className="absolute right-0 mt-2 w-36 rounded-xl bg-slate-900 border border-slate-700 shadow-xl py-1 z-50 animate-fade-in"
+                onMouseLeave={() => setLangDropdownOpen(false)}
+              >
+                {languages.map((l) => (
+                  <button
+                    key={l.code}
+                    onClick={() => {
+                      onSelectLang(l.code);
+                      setLangDropdownOpen(false);
+                    }}
+                    className={`flex items-center gap-2.5 w-full px-3 py-2 text-xs font-medium text-left transition-colors ${
+                      lang === l.code
+                        ? 'bg-cyan-500/15 text-cyan-300 font-bold'
+                        : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                    }`}
+                  >
+                    <span className="text-base">{l.flag}</span>
+                    <span>{l.full}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* Owner / Admin mode toggle */}
           {isAdmin ? (
             <div className="flex items-center gap-2">
@@ -69,7 +129,7 @@ export default function Navbar({ isAdmin, onOpenAdmin, onLockAdmin }: NavbarProp
                 title="Edit portfolio content"
               >
                 <Unlock className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Owner Mode (Active)</span>
+                <span>{t.ownerMode}</span>
               </button>
               <button
                 onClick={onLockAdmin}
@@ -86,29 +146,38 @@ export default function Navbar({ isAdmin, onOpenAdmin, onLockAdmin }: NavbarProp
               title="Unlock Owner Edit Mode"
             >
               <Lock className="w-3.5 h-3.5 text-slate-500" />
-              <span>Owner Access</span>
+              <span>{t.ownerAccess}</span>
             </button>
           )}
 
-          {/* Quick Contact / CV */}
+          {/* Quick Connect CTA */}
           <a
             href="#contact"
             className="flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 hover:brightness-110 shadow-sm shadow-cyan-500/20 transition-all"
           >
-            <span>Let&apos;s Connect</span>
+            <span>{t.connect}</span>
           </a>
         </div>
 
-        {/* Mobile menu hamburger */}
+        {/* Mobile menu right controls */}
         <div className="flex md:hidden items-center gap-2">
-          {isAdmin && (
-            <button
-              onClick={onOpenAdmin}
-              className="p-2 text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 rounded-lg"
-            >
-              <Unlock className="w-4 h-4" />
-            </button>
-          )}
+          {/* Mobile Language Switcher */}
+          <div className="flex items-center bg-slate-900 border border-slate-800 rounded-lg p-0.5">
+            {languages.map((l) => (
+              <button
+                key={l.code}
+                onClick={() => onSelectLang(l.code)}
+                className={`px-2 py-1 text-[11px] font-bold rounded ${
+                  lang === l.code
+                    ? 'bg-cyan-500 text-slate-950'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                {l.label}
+              </button>
+            ))}
+          </div>
+
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 text-slate-300 hover:text-white rounded-lg bg-slate-900 border border-slate-800"
@@ -140,14 +209,14 @@ export default function Navbar({ isAdmin, onOpenAdmin, onLockAdmin }: NavbarProp
               className="flex items-center justify-center gap-2 w-full py-2 text-xs font-medium bg-slate-900 border border-slate-800 text-slate-300 rounded-lg"
             >
               {isAdmin ? <Unlock className="w-4 h-4 text-emerald-400" /> : <Lock className="w-4 h-4 text-slate-500" />}
-              {isAdmin ? "Owner Mode (Edit Content)" : "Owner Access"}
+              {isAdmin ? t.ownerMode : t.ownerAccess}
             </button>
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-semibold rounded-lg bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 font-semibold"
             >
-              Let&apos;s Connect
+              {t.connect}
             </a>
           </div>
         </div>

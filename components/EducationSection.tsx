@@ -2,14 +2,16 @@
 
 import React from 'react';
 import { EducationInfo } from '@/lib/types';
-import { GraduationCap, Award, BookOpen, CheckCircle, ExternalLink, Calendar, Users, Building, ShieldCheck } from 'lucide-react';
+import { Translations } from '@/lib/i18n';
+import { GraduationCap, CheckCircle, ExternalLink, Building, ShieldCheck } from 'lucide-react';
 
 interface EducationProps {
   education: EducationInfo;
+  t: Translations['education'];
   onViewDoc: (title: string, url: string, type: 'image' | 'pdf') => void;
 }
 
-export default function EducationSection({ education, onViewDoc }: EducationProps) {
+export default function EducationSection({ education, t, onViewDoc }: EducationProps) {
   const highlights = [
     { title: "Advanced Econometrics", desc: "Linear regression, multivariate time-series, hypothesis testing & forecasting." },
     { title: "Micro & Macroeconomics", desc: "Fiscal & monetary theory, market structures, inflation & exchange rate models." },
@@ -25,13 +27,13 @@ export default function EducationSection({ education, onViewDoc }: EducationProp
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <GraduationCap className="w-3.5 h-3.5" />
-            <span>Academic Background</span>
+            <span>{t.badge}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Education & University Excellence
+            {t.title}
           </h2>
           <p className="mt-3 text-slate-400 text-sm sm:text-base">
-            Studying at New Uzbekistan University, one of the nation&apos;s leading institutions focused on global educational standards, rigorous quantitative analytics, and modern economic theory.
+            {t.subtitle}
           </p>
         </div>
 
@@ -44,13 +46,13 @@ export default function EducationSection({ education, onViewDoc }: EducationProp
               
               <div className="flex flex-wrap items-center gap-3">
                 <span className="px-3 py-1 rounded-md bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
-                  {education.year} &bull; {education.studyMode}
+                  {t.yearBadge}
                 </span>
                 <span className="px-3 py-1 rounded-md bg-cyan-500/15 border border-cyan-500/30 text-cyan-400 text-xs font-bold">
                   {education.period}
                 </span>
                 <span className="px-3 py-1 rounded-md bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-xs font-semibold">
-                  Status: O&apos;qimoqda (Active)
+                  {t.activeStatus}
                 </span>
               </div>
 
@@ -59,15 +61,15 @@ export default function EducationSection({ education, onViewDoc }: EducationProp
                   {education.university}
                 </h3>
                 <p className="text-lg font-semibold text-cyan-400 mt-1">
-                  {education.degree} in {education.major}
+                  {t.majorTitle}
                 </p>
                 <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                  {education.faculty}
+                  {t.facultyTitle}
                 </p>
               </div>
 
               <p className="text-sm text-slate-300 leading-relaxed">
-                {education.description}
+                {t.description}
               </p>
 
               {/* Coursework grid */}
@@ -91,7 +93,7 @@ export default function EducationSection({ education, onViewDoc }: EducationProp
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-semibold text-xs transition-colors"
                 >
                   <ShieldCheck className="w-4 h-4 text-cyan-400" />
-                  <span>View Official Student ID Card</span>
+                  <span>{t.viewIdBtn}</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -107,33 +109,33 @@ export default function EducationSection({ education, onViewDoc }: EducationProp
                 <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                   <div className="flex items-center gap-2">
                     <Building className="w-4 h-4 text-cyan-400" />
-                    <span className="text-xs font-bold text-slate-200">TALABALIK GUVOHNOMASI</span>
+                    <span className="text-xs font-bold text-slate-200">{t.cardTitle}</span>
                   </div>
                   <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                    Tasdiqlangan
+                    {t.cardVerified}
                   </span>
                 </div>
 
                 {/* ID details table */}
                 <div className="space-y-2.5 py-4 text-xs">
                   <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
-                    <span className="text-slate-400">Muassasa:</span>
+                    <span className="text-slate-400">{t.institutionLabel}</span>
                     <span className="font-semibold text-white text-right text-[11px]">Yangi O&apos;zbekiston universiteti</span>
                   </div>
                   <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
-                    <span className="text-slate-400">Yo&apos;nalish:</span>
+                    <span className="text-slate-400">{t.majorLabel}</span>
                     <span className="font-semibold text-cyan-400 text-right text-[11px]">Iqtisodiyot va ma&apos;lumotlar tahlili</span>
                   </div>
                   <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
-                    <span className="text-slate-400">Guruh & Bosqich:</span>
+                    <span className="text-slate-400">{t.groupLabel}</span>
                     <span className="font-semibold text-white">FED1 &bull; 3-kurs</span>
                   </div>
                   <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
-                    <span className="text-slate-400">Guvohnoma raqami:</span>
+                    <span className="text-slate-400">{t.docNumLabel}</span>
                     <span className="font-mono text-amber-400 font-bold">{education.studentIdNumber}</span>
                   </div>
                   <div className="flex justify-between items-center py-1">
-                    <span className="text-slate-400">JShShIR:</span>
+                    <span className="text-slate-400">{t.pnflLabel}</span>
                     <span className="font-mono text-slate-300">50910066960026</span>
                   </div>
                 </div>
@@ -143,7 +145,7 @@ export default function EducationSection({ education, onViewDoc }: EducationProp
                   onClick={() => onViewDoc("Official Student Identity Card", education.documentUrl, "image")}
                   className="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700/80 text-white font-medium text-xs flex items-center justify-center gap-2 transition-colors border border-slate-700"
                 >
-                  <span>Open Full Size Document</span>
+                  <span>{t.openDocBtn}</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </button>
               </div>

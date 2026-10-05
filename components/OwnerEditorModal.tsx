@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { PortfolioData, ProjectItem, SkillCategory, ACCAExam } from '@/lib/types';
 import { PortfolioStorage } from '@/lib/storage';
+import { Translations } from '@/lib/i18n';
 import { 
   Lock, 
   Unlock, 
@@ -14,15 +15,15 @@ import {
   Trash2, 
   X, 
   CheckCircle2, 
-  AlertCircle,
-  KeyRound,
-  ShieldAlert,
-  User,
-  GraduationCap,
-  Award,
-  FolderGit2,
-  Wrench,
-  Shield
+  AlertCircle, 
+  KeyRound, 
+  ShieldAlert, 
+  User, 
+  GraduationCap, 
+  Award, 
+  FolderGit2, 
+  Wrench, 
+  Shield 
 } from 'lucide-react';
 
 interface OwnerEditorModalProps {
@@ -32,6 +33,7 @@ interface OwnerEditorModalProps {
   onSaveData: (newData: PortfolioData) => void;
   isAdmin: boolean;
   onAdminAuthChange: (auth: boolean) => void;
+  t: Translations['owner'];
 }
 
 export default function OwnerEditorModal({
@@ -40,7 +42,8 @@ export default function OwnerEditorModal({
   data,
   onSaveData,
   isAdmin,
-  onAdminAuthChange
+  onAdminAuthChange,
+  t
 }: OwnerEditorModalProps) {
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState(false);
@@ -660,7 +663,7 @@ export default function OwnerEditorModal({
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                           <input
                             type="text"
                             placeholder="Category"
@@ -682,6 +685,17 @@ export default function OwnerEditorModal({
                               setFormData({ ...formData, projects: updated });
                             }}
                             className="px-2 py-1 rounded bg-slate-900 border border-slate-800 text-xs text-slate-300 font-mono"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Live Web Service URL (e.g. https://...)"
+                            value={proj.liveUrl || ''}
+                            onChange={(e) => {
+                              const updated = [...formData.projects];
+                              updated[idx].liveUrl = e.target.value;
+                              setFormData({ ...formData, projects: updated });
+                            }}
+                            className="px-2 py-1 rounded bg-slate-900 border border-slate-800 text-xs text-emerald-400 font-mono"
                           />
                         </div>
 

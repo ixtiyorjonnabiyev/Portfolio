@@ -2,19 +2,20 @@
 
 import React from 'react';
 import { ACCAInfo } from '@/lib/types';
-import { Award, CheckCircle2, Clock, Calendar, FileText, ExternalLink, ShieldCheck, ArrowUpRight } from 'lucide-react';
+import { Translations } from '@/lib/i18n';
+import { Award, CheckCircle2, Clock, Calendar, FileText, ShieldCheck, ArrowUpRight } from 'lucide-react';
 
 interface AccaSectionProps {
   acca: ACCAInfo;
+  t: Translations['acca'];
   onViewDoc: (title: string, url: string, type: 'image' | 'pdf') => void;
 }
 
-export default function AccaSection({ acca, onViewDoc }: AccaSectionProps) {
+export default function AccaSection({ acca, t, onViewDoc }: AccaSectionProps) {
   const passedExams = acca.exams.filter(e => e.status === 'passed' || e.status === 'exempted');
   const inProgressExams = acca.exams.filter(e => e.status === 'in-progress');
   const plannedExams = acca.exams.filter(e => e.status === 'planned');
 
-  const totalExams = acca.exams.length;
   const progressPercent = Math.round((passedExams.length / 13) * 100);
 
   return (
@@ -26,13 +27,13 @@ export default function AccaSection({ acca, onViewDoc }: AccaSectionProps) {
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-wider mb-3">
               <Award className="w-3.5 h-3.5" />
-              <span>Global Professional Qualification</span>
+              <span>{t.badge}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              ACCA Journey & Credentials
+              {t.title}
             </h2>
             <p className="mt-2 text-slate-400 text-sm sm:text-base">
-              Candidate with the Association of Chartered Certified Accountants (UK). Actively progressing through the globally recognized benchmark for finance professionals and IFRS specialists.
+              {t.subtitle}
             </p>
           </div>
 
@@ -42,7 +43,7 @@ export default function AccaSection({ acca, onViewDoc }: AccaSectionProps) {
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 font-semibold text-xs transition-all shadow-lg shadow-amber-500/10"
             >
               <FileText className="w-4 h-4 text-amber-400" />
-              <span>Verify Official ACCA Transcript</span>
+              <span>{t.verifyTranscriptBtn}</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -53,18 +54,18 @@ export default function AccaSection({ acca, onViewDoc }: AccaSectionProps) {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
             
             <div className="space-y-1">
-              <span className="text-xs text-slate-400">Registration Number</span>
+              <span className="text-xs text-slate-400">{t.regNumLabel}</span>
               <div className="text-xl font-mono font-bold text-white flex items-center gap-2">
                 <span>{acca.registrationNumber}</span>
                 <span className="p-1 rounded bg-emerald-500/20 text-emerald-400 text-[10px]">
                   <ShieldCheck className="w-3 h-3" />
                 </span>
               </div>
-              <span className="text-[11px] text-slate-500">Registered: {acca.registrationDate}</span>
+              <span className="text-[11px] text-slate-500">{t.registeredOn}</span>
             </div>
 
             <div className="space-y-1">
-              <span className="text-xs text-slate-400">Syllabus Track</span>
+              <span className="text-xs text-slate-400">{t.syllabusLabel}</span>
               <div className="text-base font-bold text-slate-200">
                 {acca.qualification}
               </div>
@@ -72,16 +73,16 @@ export default function AccaSection({ acca, onViewDoc }: AccaSectionProps) {
             </div>
 
             <div className="space-y-1">
-              <span className="text-xs text-slate-400">Completed Papers</span>
+              <span className="text-xs text-slate-400">{t.completedLabel}</span>
               <div className="text-xl font-extrabold text-emerald-400">
                 {passedExams.length} <span className="text-xs text-slate-400 font-normal">/ 13 total</span>
               </div>
-              <span className="text-[11px] text-slate-400">Applied Knowledge & Skills</span>
+              <span className="text-[11px] text-slate-400">{t.completedSub}</span>
             </div>
 
             <div className="space-y-2">
               <div className="flex justify-between text-xs">
-                <span className="text-slate-400">Completion Track</span>
+                <span className="text-slate-400">{t.progressLabel}</span>
                 <span className="font-mono font-semibold text-cyan-400">{progressPercent}%</span>
               </div>
               <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
@@ -99,7 +100,7 @@ export default function AccaSection({ acca, onViewDoc }: AccaSectionProps) {
         <div className="mb-10">
           <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
             <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-            <span>Passed & Exempted Examinations</span>
+            <span>{t.passedSectionTitle}</span>
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -128,8 +129,8 @@ export default function AccaSection({ acca, onViewDoc }: AccaSectionProps) {
                 </div>
 
                 <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
-                  <span>Verified ACCA Record</span>
-                  <span className="text-emerald-400 font-medium">Completed ✓</span>
+                  <span>{t.verifiedRecord}</span>
+                  <span className="text-emerald-400 font-medium">{t.completedCheck}</span>
                 </div>
               </div>
             ))}
@@ -140,7 +141,7 @@ export default function AccaSection({ acca, onViewDoc }: AccaSectionProps) {
         <div>
           <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
             <Clock className="w-5 h-5 text-cyan-400" />
-            <span>Applied Skills & Strategic Professional Roadmap</span>
+            <span>{t.roadmapSectionTitle}</span>
           </h3>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
@@ -158,7 +159,7 @@ export default function AccaSection({ acca, onViewDoc }: AccaSectionProps) {
                       ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30' 
                       : 'bg-slate-800 text-slate-400'
                   }`}>
-                    {exam.status === 'in-progress' ? 'In Progress' : 'Planned'}
+                    {exam.status === 'in-progress' ? t.inProgressBadge : t.plannedBadge}
                   </span>
                 </div>
                 <div className="text-xs font-semibold text-slate-200 line-clamp-2">

@@ -13,13 +13,15 @@ import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import OwnerEditorModal from '@/components/OwnerEditorModal';
 import DocumentViewerModal from '@/components/DocumentViewerModal';
-import { PortfolioData } from '@/lib/types';
+import { PortfolioData, Language } from '@/lib/types';
 import { INITIAL_PORTFOLIO_DATA } from '@/lib/initial-data';
 import { PortfolioStorage } from '@/lib/storage';
-import { Lock, Unlock, Edit3 } from 'lucide-react';
+import { TRANSLATIONS } from '@/lib/i18n';
+import { Lock, Unlock } from 'lucide-react';
 
 export default function PortfolioPage() {
   const [data, setData] = useState<PortfolioData>(INITIAL_PORTFOLIO_DATA);
+  const [lang, setLang] = useState<Language>('en');
   const [isAdmin, setIsAdmin] = useState(false);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [activeDoc, setActiveDoc] = useState<{
@@ -33,7 +35,13 @@ export default function PortfolioPage() {
     const loadedData = PortfolioStorage.getData();
     setData(loadedData);
     setIsAdmin(PortfolioStorage.isAdminAuthenticated());
+    setLang(PortfolioStorage.getLanguage());
   }, []);
+
+  const handleSelectLang = (newLang: Language) => {
+    setLang(newLang);
+    PortfolioStorage.setLanguage(newLang);
+  };
 
   const handleSaveData = (newData: PortfolioData) => {
     setData(newData);
@@ -50,14 +58,19 @@ export default function PortfolioPage() {
     setIsEditorOpen(false);
   };
 
+  const t = TRANSLATIONS[lang];
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-cyan-500/20 selection:text-cyan-300">
       
-      {/* Navigation */}
+      {/* Navigation with 3-language selector */}
       <Navbar
         isAdmin={isAdmin}
         onOpenAdmin={() => setIsEditorOpen(true)}
         onLockAdmin={handleLockAdmin}
+        lang={lang}
+        onSelectLang={handleSelectLang}
+        t={t.nav}
       />
 
       {/* Main Content Sections */}
@@ -66,39 +79,47 @@ export default function PortfolioPage() {
           personal={data.personal}
           acca={data.acca}
           education={data.education}
+          t={t.hero}
           onViewDoc={handleOpenDoc}
         />
 
         <AboutSection
           personal={data.personal}
+          t={t.about}
           onViewDoc={handleOpenDoc}
         />
 
         <EducationSection
           education={data.education}
+          t={t.education}
           onViewDoc={handleOpenDoc}
         />
 
         <AccaSection
           acca={data.acca}
+          t={t.acca}
           onViewDoc={handleOpenDoc}
         />
 
         <SkillsSection
           categories={data.skills}
+          t={t.skills}
         />
 
         <ProjectsSection
           projects={data.projects}
+          t={t.projects}
         />
 
         <CredentialsSection
           certifications={data.certifications}
+          t={t.credentials}
           onViewDoc={handleOpenDoc}
         />
 
         <ContactSection
           personal={data.personal}
+          t={t.contact}
         />
       </main>
 
@@ -106,6 +127,8 @@ export default function PortfolioPage() {
       <Footer
         isAdmin={isAdmin}
         onOpenAdmin={() => setIsEditorOpen(true)}
+        t={t.footer}
+        navT={t.nav}
       />
 
       {/* Floating Owner Button on Bottom Corner */}
@@ -122,12 +145,12 @@ export default function PortfolioPage() {
           {isAdmin ? (
             <>
               <Unlock className="w-4 h-4 text-slate-950" />
-              <span>Owner Mode (Edit Content)</span>
+              <span>{t.nav.ownerMode}</span>
             </>
           ) : (
             <>
               <Lock className="w-3.5 h-3.5 text-slate-400" />
-              <span>Owner Access</span>
+              <span>{t.nav.ownerAccess}</span>
             </>
           )}
         </button>
@@ -141,6 +164,7 @@ export default function PortfolioPage() {
         onSaveData={handleSaveData}
         isAdmin={isAdmin}
         onAdminAuthChange={setIsAdmin}
+        t={t.owner}
       />
 
       {/* Official Document Viewer Modal */}

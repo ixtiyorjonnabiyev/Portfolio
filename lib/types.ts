@@ -1,3 +1,5 @@
+export type Language = 'en' | 'uz' | 'ru';
+
 export interface PersonalInfo {
   name: string;
   uzbekFullName: string;

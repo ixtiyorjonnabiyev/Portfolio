@@ -169,7 +169,7 @@ export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
       description: "Architected a comprehensive financial operations software supporting multi-currency tracking (UZS / USD), automated P&L statements, balance sheets, cash flow forecasting, multi-industry business categorization, inventory management, tax estimations, and multi-language localization (Uzbek, Russian, English). Built with Next.js 16, React 19, and Tailwind CSS.",
       technologies: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS", "Financial Modeling", "IFRS"],
       githubUrl: "https://github.com/ixtiyorjonnabiyev/financeV_1",
-      liveUrl: "",
+      liveUrl: "https://finance-v-1.vercel.app",
       featured: true
     },
     {

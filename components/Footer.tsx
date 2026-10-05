@@ -1,14 +1,17 @@
 'use client';
 
 import React from 'react';
-import { ShieldCheck, Heart, ArrowUp, Lock, Unlock } from 'lucide-react';
+import { ShieldCheck, ArrowUp, Lock, Unlock } from 'lucide-react';
+import { Translations } from '@/lib/i18n';
 
 interface FooterProps {
   isAdmin: boolean;
   onOpenAdmin: () => void;
+  t: Translations['footer'];
+  navT: Translations['nav'];
 }
 
-export default function Footer({ isAdmin, onOpenAdmin }: FooterProps) {
+export default function Footer({ isAdmin, onOpenAdmin, t, navT }: FooterProps) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -28,17 +31,17 @@ export default function Footer({ isAdmin, onOpenAdmin }: FooterProps) {
             <div>
               <p className="font-bold text-white text-sm">Ikhtiyorjon Nabiyev</p>
               <p className="text-xs text-slate-400">
-                Economics & Data Analytics &bull; ACCA Candidate
+                {t.tagline}
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-6 text-xs text-slate-400">
-            <a href="#about" className="hover:text-cyan-400 transition-colors">About</a>
-            <a href="#education" className="hover:text-cyan-400 transition-colors">Education</a>
-            <a href="#acca" className="hover:text-cyan-400 transition-colors">ACCA</a>
-            <a href="#projects" className="hover:text-cyan-400 transition-colors">Projects</a>
-            <a href="#contact" className="hover:text-cyan-400 transition-colors">Contact</a>
+            <a href="#about" className="hover:text-cyan-400 transition-colors">{navT.about}</a>
+            <a href="#education" className="hover:text-cyan-400 transition-colors">{navT.education}</a>
+            <a href="#acca" className="hover:text-cyan-400 transition-colors">{navT.acca}</a>
+            <a href="#projects" className="hover:text-cyan-400 transition-colors">{navT.projects}</a>
+            <a href="#contact" className="hover:text-cyan-400 transition-colors">{navT.contact}</a>
           </div>
 
           <div className="flex items-center gap-3">
@@ -47,7 +50,7 @@ export default function Footer({ isAdmin, onOpenAdmin }: FooterProps) {
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-slate-400 hover:text-white bg-slate-900 border border-slate-800 rounded-lg hover:border-slate-700 transition-colors"
             >
               {isAdmin ? <Unlock className="w-3.5 h-3.5 text-emerald-400" /> : <Lock className="w-3.5 h-3.5 text-slate-500" />}
-              <span>{isAdmin ? "Owner Mode" : "Owner Login"}</span>
+              <span>{isAdmin ? t.ownerMode : t.ownerLogin}</span>
             </button>
 
             <button
@@ -63,11 +66,11 @@ export default function Footer({ isAdmin, onOpenAdmin }: FooterProps) {
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>
-            &copy; {new Date().getFullYear()} Ikhtiyorjon Nabiyev. All rights reserved. Yangi O&apos;zbekiston universiteti.
+            &copy; {new Date().getFullYear()} Ikhtiyorjon Nabiyev. {t.allRights}
           </p>
           <div className="flex items-center gap-1.5">
             <ShieldCheck className="w-4 h-4 text-cyan-500" />
-            <span>ACCA Candidate &bull; Registration #6827910</span>
+            <span>{t.regNotice}</span>
           </div>
         </div>
 
