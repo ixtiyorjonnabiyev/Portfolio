@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { PersonalInfo } from '@/lib/types';
-import { Mail, Send, MapPin, Phone, Github, Linkedin, CheckCircle2, MessageSquare, ArrowRight } from 'lucide-react';
+import { Mail, Send, MapPin, Phone, CheckCircle2, MessageSquare, ArrowRight } from 'lucide-react';
+import { GithubIcon } from './Icons';
 
 interface ContactSectionProps {
   personal: PersonalInfo;
@@ -103,7 +104,7 @@ export default function ContactSection({ personal }: ContactSectionProps) {
                   className="flex items-center gap-4 p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-600 text-slate-300 hover:text-white transition-all group"
                 >
                   <div className="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 group-hover:scale-105 transition-transform">
-                    <Github className="w-5 h-5" />
+                    <GithubIcon className="w-5 h-5" />
                   </div>
                   <div>
                     <span className="text-xs text-slate-400 block">GitHub Profile</span>

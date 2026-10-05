@@ -5,8 +5,6 @@ import { PersonalInfo, ACCAInfo, EducationInfo } from '@/lib/types';
 import { 
   FileText, 
   Send, 
-  Github, 
-  Linkedin, 
   Mail, 
   MapPin, 
   GraduationCap, 
@@ -17,6 +15,7 @@ import {
   TrendingUp,
   Download
 } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from './Icons';
 
 interface HeroProps {
   personal: PersonalInfo;
@@ -134,7 +133,7 @@ export default function Hero({ personal, acca, education, onViewDoc }: HeroProps
                 className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-600 hover:bg-slate-800 transition-all"
                 title="GitHub"
               >
-                <Github className="w-4 h-4" />
+                <GithubIcon className="w-4 h-4" />
               </a>
               <a
                 href={personal.linkedin}
@@ -143,7 +142,7 @@ export default function Hero({ personal, acca, education, onViewDoc }: HeroProps
                 className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 hover:bg-slate-800 transition-all"
                 title="LinkedIn"
               >
-                <Linkedin className="w-4 h-4" />
+                <LinkedinIcon className="w-4 h-4" />
               </a>
               <a
                 href={`mailto:${personal.email}`}

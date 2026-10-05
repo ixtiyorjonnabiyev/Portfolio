@@ -5,7 +5,6 @@ import { ProjectItem } from '@/lib/types';
 import { 
   FolderGit2, 
   ExternalLink, 
-  Github, 
   Sparkles, 
   Layers, 
   ChevronRight,
@@ -13,6 +12,7 @@ import {
   Building2,
   CheckCircle2
 } from 'lucide-react';
+import { GithubIcon } from './Icons';
 
 interface ProjectsSectionProps {
   projects: ProjectItem[];
@@ -111,7 +111,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                       rel="noreferrer"
                       className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs border border-slate-700 transition-all shadow-md"
                     >
-                      <Github className="w-4 h-4" />
+                      <GithubIcon className="w-4 h-4" />
                       <span>View GitHub Repository</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
@@ -180,7 +180,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                       className="text-slate-500 hover:text-white transition-colors"
                       title="GitHub repository"
                     >
-                      <Github className="w-4 h-4" />
+                      <GithubIcon className="w-4 h-4" />
                     </a>
                   )}
                 </div>
@@ -276,7 +276,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     rel="noreferrer"
                     className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold border border-slate-700"
                   >
-                    <Github className="w-4 h-4" />
+                    <GithubIcon className="w-4 h-4" />
                     <span>View Repository</span>
                   </a>
                 )}
