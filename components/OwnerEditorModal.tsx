@@ -461,6 +461,20 @@ export default function OwnerEditorModal({
                   </div>
 
                   <div className="space-y-1">
+                    <label className="text-xs font-medium text-slate-300">Study Mode & Academic Group</label>
+                    <input
+                      type="text"
+                      value={formData.education.studyMode || ''}
+                      onChange={(e) => setFormData({
+                        ...formData,
+                        education: { ...formData.education, studyMode: e.target.value }
+                      })}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:border-cyan-400"
+                      placeholder="e.g. Kunduzgi (Full-time) - Group JED1"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
                     <label className="text-xs font-medium text-slate-300">Faculty Description</label>
                     <textarea
                       rows={3}

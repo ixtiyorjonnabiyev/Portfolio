@@ -24,7 +24,7 @@ export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
     faculty: "Gumanitar, aniq va ijtimoiy fanlar maktabi (School of Humanities, Exact and Social Sciences)",
     year: "3-kurs (3rd Year Student)",
     period: "2023 - 2027 (Expected)",
-    studyMode: "Kunduzgi (Full-time) - Group FED1",
+    studyMode: "Kunduzgi (Full-time) - Group JED1",
     studentIdNumber: "514241100433",
     documentUrl: "/student_id.jpg",
     description: "Rigorous academic curriculum covering advanced micro & macroeconomics, econometrics, statistical modeling, data analytics, financial mathematics, and algorithmic problem solving at one of Uzbekistan's premier higher education institutions."
@@ -134,6 +134,7 @@ export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
     {
       title: "Economics & Data Analytics",
       skills: [
+        { name: "SAT Mathematics (760 / 800)", level: 95, note: "Quantitative & Analytical Reasoning (Top 1% Percentile)" },
         { name: "Econometric Modeling", level: 88, note: "Regression & Time Series" },
         { name: "Advanced Microsoft Excel / Sheets", level: 95, note: "Financial Models, VBA, Pivots" },
         { name: "Python for Data Analysis", level: 85, note: "Pandas, NumPy, Matplotlib" },
@@ -155,8 +156,8 @@ export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
       title: "Languages & Communication",
       skills: [
         { name: "Uzbek (O'zbek tili)", level: 100, note: "Native Language" },
-        { name: "English", level: 85, note: "Professional & Academic Working Proficiency" },
-        { name: "Russian", level: 80, note: "Professional Working Proficiency" }
+        { name: "English (CEFR B2)", level: 75, note: "B2 Upper-Intermediate • Academic & Professional" },
+        { name: "Russian (Starter / A1)", level: 35, note: "Starter / Basic Communication" }
       ]
     }
   ],
@@ -230,6 +231,15 @@ export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
       date: "2023 - Present",
       credentialId: "Guvohnoma: 514241100433 | JShShIR: 50910066960026",
       fileUrl: "/student_id.jpg"
+    },
+    {
+      id: "sat-math",
+      title: "SAT Mathematics - 760 / 800",
+      issuer: "College Board",
+      date: "Score: 760/800 • Top Percentile",
+      credentialId: "SAT Subject Score: 760 / 800 Math",
+      verifyUrl: "https://www.collegeboard.org",
+      fileUrl: ""
     }
   ],
   adminPin: "1234"

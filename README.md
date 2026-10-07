@@ -8,7 +8,7 @@
 
 ## 🌟 Overview
 This is the personal academic and professional portfolio of **Ikhtiyorjon Nabiyev** (*Nabiyev Ixtiyorjon Muzaffar o'g'li*), showcasing:
-- **Academic Enrollment**: New Uzbekistan University (Yangi O'zbekiston universiteti) - 3rd Year (BSc Economics & Data Analytics, Group FED1).
+- **Academic Enrollment**: New Uzbekistan University (Yangi O'zbekiston universiteti) - 3rd Year (BSc Economics & Data Analytics, Group JED1).
 - **ACCA Examinations**: Association of Chartered Certified Accountants (UK):
   - **FR (Financial Reporting)** - Passed (64%)
   - **FA (Financial Accounting)** - Passed CBE (65%)

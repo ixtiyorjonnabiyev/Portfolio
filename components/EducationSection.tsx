@@ -128,7 +128,7 @@ export default function EducationSection({ education, t, onViewDoc }: EducationP
                   </div>
                   <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
                     <span className="text-slate-400">{t.groupLabel}</span>
-                    <span className="font-semibold text-white">FED1 &bull; 3-kurs</span>
+                    <span className="font-semibold text-white">JED1 &bull; 3-kurs</span>
                   </div>
                   <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
                     <span className="text-slate-400">{t.docNumLabel}</span>

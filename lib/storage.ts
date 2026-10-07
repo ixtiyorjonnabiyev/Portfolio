@@ -1,7 +1,7 @@
 import { PortfolioData } from './types';
 import { INITIAL_PORTFOLIO_DATA } from './initial-data';
 
-const STORAGE_KEY = 'ikhtiyorjon_portfolio_data_v1';
+const STORAGE_KEY = 'ikhtiyorjon_portfolio_data_v3';
 const AUTH_KEY = 'ikhtiyorjon_portfolio_is_admin';
 
 export const PortfolioStorage = {
@@ -36,6 +36,8 @@ export const PortfolioStorage = {
   resetData(): PortfolioData {
     if (typeof window !== 'undefined') {
       localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem('ikhtiyorjon_portfolio_data_v2');
+      localStorage.removeItem('ikhtiyorjon_portfolio_data_v1');
     }
     return INITIAL_PORTFOLIO_DATA;
   },
