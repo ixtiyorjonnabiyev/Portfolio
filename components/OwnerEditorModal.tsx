@@ -338,6 +338,18 @@ export default function OwnerEditorModal({
                       />
                     </div>
                     <div className="space-y-1">
+                      <label className="text-xs font-medium text-slate-300">Phone Number</label>
+                      <input
+                        type="text"
+                        value={formData.personal.phone}
+                        onChange={(e) => setFormData({
+                          ...formData,
+                          personal: { ...formData.personal, phone: e.target.value }
+                        })}
+                        className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:border-cyan-400"
+                      />
+                    </div>
+                    <div className="space-y-1">
                       <label className="text-xs font-medium text-slate-300">Telegram Link or Username</label>
                       <input
                         type="text"
@@ -619,7 +631,7 @@ export default function OwnerEditorModal({
                         const newProj: ProjectItem = {
                           id: `project-${Date.now()}`,
                           title: 'New Financial Project',
-                          category: 'Fintech & Analytics',
+                          category: 'Fintech & Data Science',
                           summary: 'Short summary of the new project.',
                           description: 'Full detailed breakdown of what was achieved and designed.',
                           technologies: ['TypeScript', 'Next.js', 'IFRS'],

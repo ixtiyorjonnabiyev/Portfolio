@@ -4,30 +4,30 @@ export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
   personal: {
     name: "Ikhtiyorjon Nabiyev",
     uzbekFullName: "Nabiyev Ixtiyorjon Muzaffar o'g'li",
-    tagline: "Economics & Data Analytics Specialist | ACCA Candidate | Fintech Developer",
-    bio: "Undergraduate student at New Uzbekistan University specializing in Economics and Data Analytics, and active ACCA Candidate with successful completions in Financial Reporting (FR) and Financial Accounting (FA). Passionate about combining international accounting standards (IFRS), quantitative economic modeling, and modern full-stack web applications to solve complex business and financial challenges.",
+    tagline: "Economics & Data Science Specialist | ACCA Candidate | Fintech Developer",
+    bio: "Undergraduate student at New Uzbekistan University specializing in Economics and Data Science, and active ACCA Candidate with successful completions in Financial Reporting (FR) and Financial Accounting (FA). Passionate about combining international accounting standards (IFRS), quantitative economic modeling, data science, and modern full-stack web applications to solve complex business and financial challenges.",
     location: "Tashkent, Uzbekistan (Origin: Rishton, Fergana)",
     email: "ikhtiyorjonnabiyev@gmail.com",
-    phone: "+998 (90) 000-00-00",
+    phone: "+998 97 501 30 04",
     telegram: "https://t.me/ixtiyorjonnabiyev",
     github: "https://github.com/ixtiyorjonnabiyev",
     linkedin: "https://www.linkedin.com/in/ikhtiyorjon-nabiyev",
     avatar: "/avatar.jpg",
-    status: "Open to Financial Analyst, Data Analytics & Fintech Opportunities",
+    status: "Open to Financial Analyst, Data Science & Fintech Opportunities",
     birthDate: "09.10.2006",
     nationality: "O'zbekiston (Uzbekistan)"
   },
   education: {
     university: "Yangi O'zbekiston universiteti (New Uzbekistan University)",
     degree: "Bakalavr (Bachelor of Science)",
-    major: "Iqtisodiyot va ma'lumotlar tahlili (Economics and Data Analytics)",
+    major: "Iqtisodiyot va ma'lumotlar fani (Economics and Data Science)",
     faculty: "Gumanitar, aniq va ijtimoiy fanlar maktabi (School of Humanities, Exact and Social Sciences)",
     year: "3-kurs (3rd Year Student)",
     period: "2023 - 2027 (Expected)",
     studyMode: "Kunduzgi (Full-time) - Group JED1",
     studentIdNumber: "514241100433",
     documentUrl: "/student_id.jpg",
-    description: "Rigorous academic curriculum covering advanced micro & macroeconomics, econometrics, statistical modeling, data analytics, financial mathematics, and algorithmic problem solving at one of Uzbekistan's premier higher education institutions."
+    description: "Rigorous academic curriculum covering advanced micro & macroeconomics, econometrics, statistical modeling, data science, financial mathematics, and algorithmic problem solving at one of Uzbekistan's premier higher education institutions."
   },
   acca: {
     registrationNumber: "6827910",
@@ -132,12 +132,12 @@ export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
       ]
     },
     {
-      title: "Economics & Data Analytics",
+      title: "Economics & Data Science",
       skills: [
         { name: "SAT Mathematics (760 / 800)", level: 95, note: "Quantitative & Analytical Reasoning (Top 1% Percentile)" },
         { name: "Econometric Modeling", level: 88, note: "Regression & Time Series" },
         { name: "Advanced Microsoft Excel / Sheets", level: 95, note: "Financial Models, VBA, Pivots" },
-        { name: "Python for Data Analysis", level: 85, note: "Pandas, NumPy, Matplotlib" },
+        { name: "Python for Data Science & Analytics", level: 88, note: "Pandas, NumPy, Matplotlib, Scikit-learn" },
         { name: "Statistical Hypothesis Testing", level: 86, note: "Probability & Inference" },
         { name: "Business Intelligence & Power BI", level: 82, note: "Interactive Dashboards" }
       ]
@@ -174,14 +174,14 @@ export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
       featured: true
     },
     {
-      id: "financial-reporting-dashboard",
-      title: "Automated IFRS Financial Statements & Ratio Analyzer",
-      category: "Financial Analytics",
-      summary: "Dynamic dashboard that automatically parses financial records and computes liquidity, solvency, efficiency, and DuPont profitability metrics.",
-      description: "Interactive application for corporate finance teams to perform real-time ratio analysis (Current Ratio, Quick Ratio, Debt-to-Equity, ROE DuPont decomposition, Working Capital cycles). Generates comparative visual charts and warns about financial distress indicators based on ACCA FR standards.",
-      technologies: ["Data Analytics", "Financial Ratios", "TypeScript", "Next.js", "Chart Visualization"],
+      id: "aegis-risk-os",
+      title: "AEGIS — Institutional Investment & Risk Operating System",
+      category: "Data Science & Risk Analytics",
+      summary: "Institutional multi-factor portfolio analytics, parametric VaR stress-testing, 50,000-path Monte Carlo simulations, and cross-asset correlation matrix.",
+      description: "Architected a state-of-the-art quantitative risk and investment operating system. Features multivariate Value-at-Risk (Parametric 95% & Historical 99%), Expected Shortfall (CVaR), 50,000-path Monte Carlo simulations, historical macro tail shock stress simulations (2008 Lehman replay, COVID-19 liquidity shock, 2022 rate surge), rolling 3-year daily cross-asset covariance matrix (SPX, NDX, 10Y UST, Gold, Crude Oil, BTC), sub-millisecond OMS order execution, and automated UCITS mandate compliance.",
+      technologies: ["Data Science", "Quantitative Finance", "Value at Risk (VaR)", "Monte Carlo Simulation", "Next.js", "TypeScript", "Tailwind CSS", "Financial Engineering"],
       githubUrl: "https://github.com/ixtiyorjonnabiyev",
-      liveUrl: "",
+      liveUrl: "https://aeigs-investment-riskoperatingsyste.vercel.app/dashboard/risk",
       featured: true
     },
     {

@@ -8,7 +8,9 @@ import {
   ExternalLink, 
   Sparkles, 
   ChevronRight,
-  Rocket
+  Rocket,
+  ShieldAlert,
+  Layers
 } from 'lucide-react';
 import { GithubIcon } from './Icons';
 
@@ -21,20 +23,37 @@ export default function ProjectsSection({ projects, t }: ProjectsSectionProps) {
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   const [activeProject, setActiveProject] = useState<ProjectItem | null>(null);
 
-  const filters = ['all', 'Fintech & ERP', 'Financial Analytics', 'Data Science & Economics'];
+  const filters = ['all', 'Fintech & ERP', 'Data Science & Risk', 'Economics & Research'];
 
   const filteredProjects = selectedFilter === 'all'
     ? projects
-    : projects.filter(p => p.category.toLowerCase().includes(selectedFilter.toLowerCase()));
+    : projects.filter(p => {
+        const cat = p.category.toLowerCase();
+        const sel = selectedFilter.toLowerCase();
+        if (sel.includes('data science') && (cat.includes('data science') || cat.includes('risk') || cat.includes('analytics'))) return true;
+        if (sel.includes('fintech') && cat.includes('fintech')) return true;
+        if (sel.includes('economics') && (cat.includes('economics') || cat.includes('data science'))) return true;
+        return cat.includes(sel);
+      });
 
-  const flagship = projects.find(p => p.featured) || projects[0];
+  const featuredProjects = projects.filter(p => p.featured);
+  const [selectedFlagshipId, setSelectedFlagshipId] = useState<string>(
+    featuredProjects[0]?.id || projects[0]?.id || ''
+  );
+
+  const flagship = projects.find(p => p.id === selectedFlagshipId) || featuredProjects[0] || projects[0];
+
+  // In 'all' view, grid shows other projects, in category view it shows matching projects
+  const gridProjects = selectedFilter === 'all'
+    ? projects.filter(p => p.id !== flagship?.id)
+    : filteredProjects;
 
   return (
     <section id="projects" className="py-20 relative bg-slate-900/30 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-3">
               <FolderGit2 className="w-3.5 h-3.5" />
@@ -66,14 +85,41 @@ export default function ProjectsSection({ projects, t }: ProjectsSectionProps) {
           </div>
         </div>
 
-        {/* Featured Project Showcase Card (Moliya ERP - Finance Web Service) */}
+        {/* Flagship Platform Selector Tabs (if multiple featured) */}
+        {featuredProjects.length > 1 && (
+          <div className="flex flex-wrap items-center gap-2.5 mb-5">
+            <span className="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider mr-1 flex items-center gap-1.5">
+              <Layers className="w-3.5 h-3.5 text-cyan-400" />
+              Featured Deployments:
+            </span>
+            {featuredProjects.map((fp) => {
+              const isSelected = flagship?.id === fp.id;
+              return (
+                <button
+                  key={fp.id}
+                  onClick={() => setSelectedFlagshipId(fp.id)}
+                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                    isSelected
+                      ? 'bg-gradient-to-r from-cyan-500 to-emerald-400 text-slate-950 shadow-md shadow-cyan-500/20'
+                      : 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700'
+                  }`}
+                >
+                  <Sparkles className={`w-3.5 h-3.5 ${isSelected ? 'text-slate-950' : 'text-cyan-400'}`} />
+                  <span>{fp.id === 'moliya-app' ? 'Moliya Enterprise ERP' : fp.id === 'aegis-risk-os' ? 'AEGIS Risk OS' : fp.title}</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Featured Project Showcase Card */}
         {flagship && (
           <div className="mb-12 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border-2 border-cyan-500/40 p-6 sm:p-8 lg:p-10 shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
             
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
               <div className="lg:col-span-7 space-y-4">
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <span className="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-bold border border-cyan-500/40 flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
                     {t.flagshipBadge}
@@ -143,31 +189,59 @@ export default function ProjectsSection({ projects, t }: ProjectsSectionProps) {
 
               {/* Right preview box */}
               <div className="lg:col-span-5">
-                <div className="rounded-2xl bg-slate-950 border border-slate-800 p-5 shadow-inner space-y-4">
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                    <span className="text-xs font-mono text-cyan-400">moliya-app &bull; v1.0</span>
-                    <span className="text-[10px] bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded">Production Ready</span>
-                  </div>
+                {flagship.id === 'aegis-risk-os' ? (
+                  <div className="rounded-2xl bg-slate-950 border border-slate-800 p-5 shadow-inner space-y-4">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <span className="text-xs font-mono text-cyan-400">aegis-risk-os &bull; v2.4</span>
+                      <span className="text-[10px] bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded font-semibold">Live System</span>
+                    </div>
 
-                  <div className="space-y-2 text-xs">
-                    <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800/80 flex items-center justify-between">
-                      <span className="text-slate-400">{t.targetSectors}</span>
-                      <span className="text-slate-200 font-medium">{t.targetSectorsVal}</span>
+                    <div className="space-y-2 text-xs">
+                      <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800/80 flex items-center justify-between">
+                        <span className="text-slate-400">Simulation Engine</span>
+                        <span className="text-slate-200 font-medium">Monte Carlo (50,000 Paths)</span>
+                      </div>
+                      <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800/80 flex items-center justify-between">
+                        <span className="text-slate-400">Tail Risk Models</span>
+                        <span className="text-amber-400 font-mono">VaR 95% ($18.4M) &bull; CVaR ($36.2M)</span>
+                      </div>
+                      <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800/80 flex items-center justify-between">
+                        <span className="text-slate-400">Cross-Asset Matrix</span>
+                        <span className="text-emerald-400 font-semibold">SPX, NDX, UST, Gold, Oil, BTC</span>
+                      </div>
                     </div>
-                    <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800/80 flex items-center justify-between">
-                      <span className="text-slate-400">{t.currencySupport}</span>
-                      <span className="text-slate-200 font-mono">{t.currencySupportVal}</span>
-                    </div>
-                    <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800/80 flex items-center justify-between">
-                      <span className="text-slate-400">{t.compliance}</span>
-                      <span className="text-emerald-400 font-semibold">{t.complianceVal}</span>
-                    </div>
-                  </div>
 
-                  <div className="p-3 rounded-lg bg-gradient-to-r from-emerald-950/40 to-slate-900 border border-emerald-500/20 text-[11px] text-emerald-300 leading-snug">
-                    {t.highlightNote}
+                    <div className="p-3 rounded-lg bg-gradient-to-r from-cyan-950/40 via-emerald-950/30 to-slate-900 border border-cyan-500/20 text-[11px] text-cyan-300 leading-snug">
+                      ✓ Institutional risk operating system featuring parametric VaR, macro crisis replay (2008 Lehman, COVID-19), OMS trading simulation &amp; UCITS compliance.
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="rounded-2xl bg-slate-950 border border-slate-800 p-5 shadow-inner space-y-4">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <span className="text-xs font-mono text-cyan-400">moliya-app &bull; v1.0</span>
+                      <span className="text-[10px] bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded font-semibold">Production Ready</span>
+                    </div>
+
+                    <div className="space-y-2 text-xs">
+                      <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800/80 flex items-center justify-between">
+                        <span className="text-slate-400">{t.targetSectors}</span>
+                        <span className="text-slate-200 font-medium">{t.targetSectorsVal}</span>
+                      </div>
+                      <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800/80 flex items-center justify-between">
+                        <span className="text-slate-400">{t.currencySupport}</span>
+                        <span className="text-slate-200 font-mono">{t.currencySupportVal}</span>
+                      </div>
+                      <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800/80 flex items-center justify-between">
+                        <span className="text-slate-400">{t.compliance}</span>
+                        <span className="text-emerald-400 font-semibold">{t.complianceVal}</span>
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-lg bg-gradient-to-r from-emerald-950/40 to-slate-900 border border-emerald-500/20 text-[11px] text-emerald-300 leading-snug">
+                      {t.highlightNote}
+                    </div>
+                  </div>
+                )}
               </div>
 
             </div>
@@ -176,7 +250,7 @@ export default function ProjectsSection({ projects, t }: ProjectsSectionProps) {
 
         {/* Other Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.filter(p => !p.featured).map((project) => (
+          {gridProjects.map((project) => (
             <div
               key={project.id}
               className="rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-slate-700 p-6 flex flex-col justify-between transition-all group shadow-md"
@@ -219,7 +293,7 @@ export default function ProjectsSection({ projects, t }: ProjectsSectionProps) {
                 </div>
               </div>
 
-              <div className="pt-5 mt-4 border-t border-slate-800/80 flex items-center justify-between">
+              <div className="pt-5 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-2">
                 <button
                   onClick={() => setActiveProject(project)}
                   className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition-colors"
@@ -228,17 +302,33 @@ export default function ProjectsSection({ projects, t }: ProjectsSectionProps) {
                   <ChevronRight className="w-3.5 h-3.5" />
                 </button>
 
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-xs text-slate-400 hover:text-white flex items-center gap-1 transition-colors"
-                  >
-                    <span>{t.code}</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                )}
+                <div className="flex items-center gap-2">
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-400 text-xs font-semibold transition-colors"
+                      title={t.liveService}
+                    >
+                      <Rocket className="w-3.5 h-3.5" />
+                      <span>{t.liveService}</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
+
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-xs text-slate-400 hover:text-white flex items-center gap-1 transition-colors px-2 py-1 rounded-lg hover:bg-slate-800"
+                    >
+                      <span>{t.code}</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           ))}

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { PersonalInfo } from '@/lib/types';
 import { Translations } from '@/lib/i18n';
-import { Mail, Send, MapPin, CheckCircle2, MessageSquare, ArrowRight } from 'lucide-react';
+import { Mail, Send, MapPin, CheckCircle2, MessageSquare, ArrowRight, Phone } from 'lucide-react';
 import { GithubIcon } from './Icons';
 
 interface ContactSectionProps {
@@ -56,6 +56,22 @@ export default function ContactSection({ personal, t }: ContactSectionProps) {
 
               <div className="space-y-4 text-sm">
                 
+                {/* Phone */}
+                {personal.phone && (
+                  <a
+                    href={`tel:${personal.phone.replace(/[^+\d]/g, '')}`}
+                    className="flex items-center gap-4 p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-500/40 text-slate-300 hover:text-white transition-all group"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
+                      <Phone className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-xs text-slate-400 block">{t.phoneTitle}</span>
+                      <span className="font-semibold text-white font-mono">{personal.phone}</span>
+                    </div>
+                  </a>
+                )}
+
                 {/* Telegram */}
                 <a
                   href={personal.telegram}

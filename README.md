@@ -1,23 +1,23 @@
 # Ikhtiyorjon Nabiyev - Official Portfolio
 
-> **BSc Economics & Data Analytics** &bull; New Uzbekistan University  
+> **BSc Economics & Data Science** &bull; New Uzbekistan University  
 > **ACCA Candidate** &bull; Registration #6827910 (BT, FA, FR Certified)  
-> **Fintech & Full-Stack Builder** &bull; Creator of [Moliya ERP](https://github.com/ixtiyorjonnabiyev/financeV_1)
+> **Fintech & Full-Stack Builder** &bull; Creator of [Moliya ERP](https://finance-v-1.vercel.app) & [AEGIS Risk OS](https://aeigs-investment-riskoperatingsyste.vercel.app/dashboard/risk)
 
 ---
 
 ## 🌟 Overview
 This is the personal academic and professional portfolio of **Ikhtiyorjon Nabiyev** (*Nabiyev Ixtiyorjon Muzaffar o'g'li*), showcasing:
-- **Academic Enrollment**: New Uzbekistan University (Yangi O'zbekiston universiteti) - 3rd Year (BSc Economics & Data Analytics, Group JED1).
+- **Academic Enrollment**: New Uzbekistan University (Yangi O'zbekiston universiteti) - 3rd Year (BSc Economics & Data Science, Group JED1).
 - **ACCA Examinations**: Association of Chartered Certified Accountants (UK):
   - **FR (Financial Reporting)** - Passed (64%)
   - **FA (Financial Accounting)** - Passed CBE (65%)
   - **BT (Business and Technology)** - Exemption
 - **Featured Projects**:
-  - [Moliya Platform](https://github.com/ixtiyorjonnabiyev/financeV_1) - Enterprise financial management and accounting ERP.
-  - Automated IFRS Financial Statements & Ratio Analyzer.
+  - [Moliya Platform](https://finance-v-1.vercel.app) - Enterprise financial management and accounting ERP.
+  - [AEGIS Investment & Risk OS](https://aeigs-investment-riskoperatingsyste.vercel.app/dashboard/risk) - Institutional multi-factor portfolio analytics, Monte Carlo stress-testing, and cross-asset correlation matrix.
   - Macroeconomic & Market Data Visualizer.
-- **Interdisciplinary Skills**: IFRS Financial Reporting, Econometric Modeling, Python/Pandas, Next.js 16, React 19, TypeScript, Tailwind CSS, Excel Financial Modeling.
+- **Interdisciplinary Skills**: IFRS Financial Reporting, Econometric Modeling, Quantitative Risk, Python/Pandas, Next.js 16, React 19, TypeScript, Tailwind CSS, Excel Financial Modeling.
 - **Verified Credentials**: Live preview for official Student ID Card and ACCA transcript.
 
 ---

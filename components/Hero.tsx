@@ -13,7 +13,8 @@ import {
   ShieldCheck,
   TrendingUp,
   Sparkles,
-  Maximize2
+  Maximize2,
+  Phone
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
@@ -118,6 +119,15 @@ export default function Hero({ personal, acca, education, t, onViewDoc }: HeroPr
             {/* Social Channels */}
             <div className="flex items-center gap-3 pt-3">
               <span className="text-xs font-medium text-slate-500 uppercase tracking-wider">{t.connectWithMe}</span>
+              {personal.phone && (
+                <a
+                  href={`tel:${personal.phone.replace(/[^+\d]/g, '')}`}
+                  className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-emerald-400 hover:border-emerald-500/40 hover:bg-slate-800 transition-all"
+                  title={`Call: ${personal.phone}`}
+                >
+                  <Phone className="w-4 h-4" />
+                </a>
+              )}
               <a
                 href={personal.telegram}
                 target="_blank"
@@ -191,7 +201,7 @@ export default function Hero({ personal, acca, education, t, onViewDoc }: HeroPr
                       </h2>
                     </div>
                     <p className="text-xs text-cyan-400 font-medium">
-                      BSc Economics & Data Analytics
+                      BSc Economics & Data Science
                     </p>
                     <p className="text-[11px] text-slate-400">
                       Yangi O&apos;zbekiston universiteti

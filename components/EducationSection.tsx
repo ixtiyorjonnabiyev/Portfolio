@@ -15,7 +15,7 @@ export default function EducationSection({ education, t, onViewDoc }: EducationP
   const highlights = [
     { title: "Advanced Econometrics", desc: "Linear regression, multivariate time-series, hypothesis testing & forecasting." },
     { title: "Micro & Macroeconomics", desc: "Fiscal & monetary theory, market structures, inflation & exchange rate models." },
-    { title: "Data Analytics & Statistics", desc: "Exploratory data analysis, statistical inference, financial quantitative methods." },
+    { title: "Data Science & Statistics", desc: "Exploratory data analysis, statistical inference, financial quantitative methods." },
     { title: "Financial Management", desc: "Capital budgeting, corporate finance, financial statements interpretation." }
   ];
 
