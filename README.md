@@ -2,7 +2,7 @@
 
 > **BSc Economics & Data Science** &bull; New Uzbekistan University  
 > **ACCA Candidate** &bull; Registration #6827910 (BT, FA, FR Certified)  
-> **Fintech & Full-Stack Builder** &bull; Creator of [Moliya ERP](https://finance-v-1.vercel.app) & [AEGIS Risk OS](https://aeigs-investment-riskoperatingsyste.vercel.app/dashboard/risk)
+> **Fintech & Full-Stack Builder** &bull; Creator of [Moliya ERP](https://finance-green-xi.vercel.app) & [AEGIS Risk OS](https://aeigs-investment-riskoperatingsyste.vercel.app/dashboard/risk)
 
 ---
 
@@ -14,7 +14,7 @@ This is the personal academic and professional portfolio of **Ikhtiyorjon Nabiye
   - **FA (Financial Accounting)** - Passed CBE (65%)
   - **BT (Business and Technology)** - Exemption
 - **Featured Projects**:
-  - [Moliya Platform](https://finance-v-1.vercel.app) - Enterprise financial management and accounting ERP.
+  - [Moliya Platform](https://finance-green-xi.vercel.app) - Enterprise financial management and accounting ERP.
   - [AEGIS Investment & Risk OS](https://aeigs-investment-riskoperatingsyste.vercel.app/dashboard/risk) - Institutional multi-factor portfolio analytics, Monte Carlo stress-testing, and cross-asset correlation matrix.
   - Macroeconomic & Market Data Visualizer.
 - **Interdisciplinary Skills**: IFRS Financial Reporting, Econometric Modeling, Quantitative Risk, Python/Pandas, Next.js 16, React 19, TypeScript, Tailwind CSS, Excel Financial Modeling.
