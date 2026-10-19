@@ -107,13 +107,13 @@ export default function Hero({ personal, acca, education, t, onViewDoc }: HeroPr
                 <span>{t.accaTranscript}</span>
               </button>
 
-              <button
-                onClick={() => onViewDoc("Student Identity Card - New Uzbekistan University", education.documentUrl, "image")}
+              <a
+                href="#education"
                 className="flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white text-sm transition-all"
               >
                 <GraduationCap className="w-4 h-4 text-cyan-400" />
-                <span>{t.studentId}</span>
-              </button>
+                <span>University Profile</span>
+              </a>
             </div>
 
             {/* Social Channels */}
@@ -267,23 +267,20 @@ export default function Hero({ personal, acca, education, t, onViewDoc }: HeroPr
                   </div>
                 </div>
 
-                {/* Identity Verification Summary Box */}
+                {/* Academic Enrollment Summary Box */}
                 <div className="p-3 rounded-xl bg-gradient-to-r from-cyan-950/40 to-slate-950/60 border border-cyan-500/20 text-xs text-slate-300 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                  <div className="flex items-center gap-2.5">
+                    <GraduationCap className="w-4 h-4 text-cyan-400 flex-shrink-0" />
                     <div>
-                      <span className="font-semibold text-white">{t.verifiedAcademicId}</span>
-                      <p className="text-[11px] text-slate-300 font-mono mt-0.5">
-                        ID: <span className="text-amber-400 font-bold">{education.studentIdNumber}</span> &bull; JShShIR: <span className="text-amber-300 font-bold">{education.jshshir || "50910066960026"}</span>
+                      <span className="font-semibold text-white">Yangi O&apos;zbekiston universiteti</span>
+                      <p className="text-[11px] text-cyan-300 mt-0.5">
+                        BSc Economics &amp; Data Science &bull; 3-kurs (Group JED1)
                       </p>
                     </div>
                   </div>
-                  <button
-                    onClick={() => onViewDoc("Student Identity Card", education.documentUrl, "image")}
-                    className="px-2.5 py-1 text-[11px] font-semibold text-cyan-400 hover:text-cyan-300 bg-cyan-500/10 hover:bg-cyan-500/20 rounded-md transition-colors whitespace-nowrap ml-2"
-                  >
-                    {t.inspect}
-                  </button>
+                  <span className="px-2 py-0.5 text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-md whitespace-nowrap ml-2">
+                    Verified Student
+                  </span>
                 </div>
 
               </div>

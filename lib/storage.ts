@@ -1,7 +1,7 @@
 import { PortfolioData } from './types';
 import { INITIAL_PORTFOLIO_DATA } from './initial-data';
 
-const STORAGE_KEY = 'ikhtiyorjon_portfolio_data_v5';
+const STORAGE_KEY = 'ikhtiyorjon_portfolio_data_v6';
 const AUTH_KEY = 'ikhtiyorjon_portfolio_is_admin';
 
 export const PortfolioStorage = {
@@ -12,14 +12,19 @@ export const PortfolioStorage = {
       if (!saved) return INITIAL_PORTFOLIO_DATA;
       const parsed = JSON.parse(saved);
       // Ensure merged with initial to prevent missing properties on future updates
-      return {
+      const merged: PortfolioData = {
         ...INITIAL_PORTFOLIO_DATA,
         ...parsed,
         adminPin: parsed.adminPin || INITIAL_PORTFOLIO_DATA.adminPin || 'Ixtiyorjon_06',
         personal: { ...INITIAL_PORTFOLIO_DATA.personal, ...parsed.personal },
-        education: { ...INITIAL_PORTFOLIO_DATA.education, ...parsed.education },
+        education: { ...INITIAL_PORTFOLIO_DATA.education, ...parsed.education, documentUrl: '' },
         acca: { ...INITIAL_PORTFOLIO_DATA.acca, ...parsed.acca },
       };
+      // Explicitly delete sensitive private identity info
+      delete (merged.personal as any).jshshir;
+      delete (merged.education as any).jshshir;
+      delete (merged.education as any).studentIdNumber;
+      return merged;
     } catch {
       return INITIAL_PORTFOLIO_DATA;
     }

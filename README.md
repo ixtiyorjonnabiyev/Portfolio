@@ -18,14 +18,14 @@ This is the personal academic and professional portfolio of **Ikhtiyorjon Nabiye
   - [AEGIS Investment & Risk OS](https://aeigs-investment-riskoperatingsyste.vercel.app/dashboard/risk) - Institutional multi-factor portfolio analytics, Monte Carlo stress-testing, and cross-asset correlation matrix.
   - Macroeconomic & Market Data Visualizer.
 - **Interdisciplinary Skills**: IFRS Financial Reporting, Econometric Modeling, Quantitative Risk, Python/Pandas, Next.js 16, React 19, TypeScript, Tailwind CSS, Excel Financial Modeling.
-- **Verified Credentials**: Live preview for official Student ID Card and ACCA transcript.
+- **Verified Credentials**: Live preview for official ACCA transcript and university academic enrollment.
 
 ---
 
 ## 🔒 Owner-Only Edit Controls
 To ensure **"only myself can change it other can only see"**:
 1. Click the **"Owner Access"** button in the navigation bar or bottom right floating action button.
-2. Enter your **Master PIN** (Default: `1234`).
+2. Enter your **Master PIN** (Default: `Ixtiyorjon_06`).
 3. You can edit any information:
    - Personal bio, contact info, social links
    - University details & student ID

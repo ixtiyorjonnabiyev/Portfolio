@@ -415,7 +415,7 @@ export default function OwnerEditorModal({
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1">
                       <label className="text-xs font-medium text-slate-300">Date of Birth</label>
                       <input
@@ -440,19 +440,6 @@ export default function OwnerEditorModal({
                         })}
                         className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:border-cyan-400"
                         placeholder="O'zbekiston (Uzbekistan)"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-xs font-medium text-slate-300">JShShIR (PINFL)</label>
-                      <input
-                        type="text"
-                        value={formData.personal.jshshir || ''}
-                        onChange={(e) => setFormData({
-                          ...formData,
-                          personal: { ...formData.personal, jshshir: e.target.value }
-                        })}
-                        className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-amber-300 font-mono text-xs focus:border-cyan-400"
-                        placeholder="50910066960026"
                       />
                     </div>
                   </div>
@@ -538,31 +525,6 @@ export default function OwnerEditorModal({
                           education: { ...formData.education, period: e.target.value }
                         })}
                         className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:border-cyan-400"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-xs font-medium text-slate-300">Student ID Number</label>
-                      <input
-                        type="text"
-                        value={formData.education.studentIdNumber}
-                        onChange={(e) => setFormData({
-                          ...formData,
-                          education: { ...formData.education, studentIdNumber: e.target.value }
-                        })}
-                        className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-amber-400 font-mono text-xs focus:border-cyan-400"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-xs font-medium text-slate-300">JShShIR (PINFL)</label>
-                      <input
-                        type="text"
-                        value={formData.education.jshshir || ''}
-                        onChange={(e) => setFormData({
-                          ...formData,
-                          education: { ...formData.education, jshshir: e.target.value }
-                        })}
-                        className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-amber-300 font-mono text-xs focus:border-cyan-400"
-                        placeholder="50910066960026"
                       />
                     </div>
                   </div>

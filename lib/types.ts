@@ -26,9 +26,9 @@ export interface EducationInfo {
   year: string;
   period: string;
   studyMode: string;
-  studentIdNumber: string;
+  studentIdNumber?: string;
   jshshir?: string;
-  documentUrl: string;
+  documentUrl?: string;
   description: string;
 }
 

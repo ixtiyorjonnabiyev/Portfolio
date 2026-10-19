@@ -15,8 +15,7 @@ export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
     avatar: "/avatar.jpg",
     status: "Open to Financial Analyst, Data Science & Fintech Opportunities",
     birthDate: "09.10.2006",
-    nationality: "O'zbekiston (Uzbekistan)",
-    jshshir: "50910066960026"
+    nationality: "O'zbekiston (Uzbekistan)"
   },
   education: {
     university: "Yangi O'zbekiston universiteti (New Uzbekistan University)",
@@ -26,9 +25,7 @@ export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
     year: "3-kurs (3rd Year Student)",
     period: "2023 - 2027 (Expected)",
     studyMode: "Kunduzgi (Full-time) - Group JED1",
-    studentIdNumber: "514241100433",
-    jshshir: "50910066960026",
-    documentUrl: "/student_id.jpg",
+    documentUrl: "",
     description: "Rigorous academic curriculum covering advanced micro & macroeconomics, econometrics, statistical modeling, data science, financial mathematics, and algorithmic problem solving at one of Uzbekistan's premier higher education institutions."
   },
   acca: {
@@ -228,11 +225,12 @@ export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
     },
     {
       id: "new-uz-uni",
-      title: "Official Student Identity & Academic Enrollment",
+      title: "Academic Enrollment — BSc Economics & Data Science",
       issuer: "Yangi O'zbekiston universiteti (New Uzbekistan University)",
-      date: "2023 - Present",
-      credentialId: "Guvohnoma: 514241100433 | JShShIR: 50910066960026",
-      fileUrl: "/student_id.jpg"
+      date: "2023 - 2027 (Expected)",
+      credentialId: "Undergraduate Degree Program • Group JED1",
+      verifyUrl: "https://newuu.uz",
+      fileUrl: ""
     },
     {
       id: "sat-math",

@@ -87,20 +87,9 @@ export default function EducationSection({ education, t, onViewDoc }: EducationP
                 ))}
               </div>
 
-              <div className="pt-2">
-                <button
-                  onClick={() => onViewDoc("Official Student Identity Card", education.documentUrl, "image")}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-semibold text-xs transition-colors"
-                >
-                  <ShieldCheck className="w-4 h-4 text-cyan-400" />
-                  <span>{t.viewIdBtn}</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </button>
-              </div>
-
             </div>
 
-            {/* Right 5 cols: Student Card Preview widget */}
+            {/* Right 5 cols: Academic Enrollment Overview widget */}
             <div className="lg:col-span-5">
               <div className="relative rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-slate-700/80 p-5 shadow-2xl overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl" />
@@ -109,14 +98,14 @@ export default function EducationSection({ education, t, onViewDoc }: EducationP
                 <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                   <div className="flex items-center gap-2">
                     <Building className="w-4 h-4 text-cyan-400" />
-                    <span className="text-xs font-bold text-slate-200">{t.cardTitle}</span>
+                    <span className="text-xs font-bold text-slate-200">Academic Standing</span>
                   </div>
                   <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                    {t.cardVerified}
+                    Verified Enrollment
                   </span>
                 </div>
 
-                {/* ID details table */}
+                {/* Academic details table */}
                 <div className="space-y-2.5 py-4 text-xs">
                   <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
                     <span className="text-slate-400">{t.institutionLabel}</span>
@@ -133,23 +122,27 @@ export default function EducationSection({ education, t, onViewDoc }: EducationP
                     <span className="font-semibold text-white">{education.studyMode || 'JED1 • 3-kurs'}</span>
                   </div>
                   <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
-                    <span className="text-slate-400">{t.docNumLabel}</span>
-                    <span className="font-mono text-amber-400 font-bold">{education.studentIdNumber}</span>
+                    <span className="text-slate-400">Faculty</span>
+                    <span className="font-medium text-slate-300 text-right text-[11px] max-w-[200px] truncate" title={education.faculty}>
+                      {education.faculty}
+                    </span>
                   </div>
                   <div className="flex justify-between items-center py-1">
-                    <span className="text-slate-400">{t.pnflLabel}</span>
-                    <span className="font-mono text-amber-300 font-bold">{education.jshshir || "50910066960026"}</span>
+                    <span className="text-slate-400">Period</span>
+                    <span className="font-medium text-emerald-400 font-mono">{education.period}</span>
                   </div>
                 </div>
 
                 {/* Card footer CTA */}
-                <button
-                  onClick={() => onViewDoc("Official Student Identity Card", education.documentUrl, "image")}
+                <a
+                  href="https://newuu.uz"
+                  target="_blank"
+                  rel="noreferrer"
                   className="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700/80 text-white font-medium text-xs flex items-center justify-center gap-2 transition-colors border border-slate-700"
                 >
-                  <span>{t.openDocBtn}</span>
+                  <span>New Uzbekistan University Portal</span>
                   <ExternalLink className="w-3.5 h-3.5" />
-                </button>
+                </a>
               </div>
             </div>
 

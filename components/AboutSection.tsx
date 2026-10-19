@@ -90,12 +90,12 @@ export default function AboutSection({ personal, t, onViewDoc }: AboutSectionPro
                 <span className="font-semibold text-white">{personal.location || t.originVal}</span>
               </div>
               <div className="p-3.5 rounded-xl bg-slate-950/50 border border-slate-800 text-xs">
-                <span className="text-slate-400 block mb-0.5">Guvohnoma (ID)</span>
-                <span className="font-mono font-bold text-amber-400">514241100433</span>
+                <span className="text-slate-400 block mb-0.5">Program</span>
+                <span className="font-semibold text-cyan-400">BSc Economics &amp; Data Science</span>
               </div>
               <div className="p-3.5 rounded-xl bg-slate-950/50 border border-slate-800 text-xs">
-                <span className="text-slate-400 block mb-0.5">JShShIR (PINFL)</span>
-                <span className="font-mono font-bold text-amber-300">{personal.jshshir || "50910066960026"}</span>
+                <span className="text-slate-400 block mb-0.5">Academic Status</span>
+                <span className="font-semibold text-emerald-400">3-kurs &bull; Group JED1</span>
               </div>
             </div>
           </div>
