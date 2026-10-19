@@ -255,14 +255,14 @@ export default function Hero({ personal, acca, education, t, onViewDoc }: HeroPr
 
                   <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80">
                     <div className="flex items-center justify-between text-slate-400 mb-1">
-                      <span className="text-xs font-medium">Web Platform</span>
+                      <span className="text-xs font-medium">Flagship Systems</span>
                       <Sparkles className="w-4 h-4 text-cyan-400" />
                     </div>
                     <div className="text-sm font-bold text-white mt-1">
-                      {t.metricPlatform}
+                      Moliya &bull; AEGIS OS
                     </div>
-                    <p className="text-[10px] text-slate-400 mt-0.5">
-                      {t.metricPlatformSub}
+                    <p className="text-[10px] text-emerald-400 mt-0.5">
+                      2 Live Deployed Services
                     </p>
                   </div>
                 </div>
@@ -273,12 +273,14 @@ export default function Hero({ personal, acca, education, t, onViewDoc }: HeroPr
                     <ShieldCheck className="w-4 h-4 text-cyan-400 flex-shrink-0" />
                     <div>
                       <span className="font-semibold text-white">{t.verifiedAcademicId}</span>
-                      <p className="text-[11px] text-slate-400">Guvoqnoma: {education.studentIdNumber}</p>
+                      <p className="text-[11px] text-slate-300 font-mono mt-0.5">
+                        ID: <span className="text-amber-400 font-bold">{education.studentIdNumber}</span> &bull; JShShIR: <span className="text-amber-300 font-bold">{education.jshshir || "50910066960026"}</span>
+                      </p>
                     </div>
                   </div>
                   <button
                     onClick={() => onViewDoc("Student Identity Card", education.documentUrl, "image")}
-                    className="px-2.5 py-1 text-[11px] font-semibold text-cyan-400 hover:text-cyan-300 bg-cyan-500/10 hover:bg-cyan-500/20 rounded-md transition-colors"
+                    className="px-2.5 py-1 text-[11px] font-semibold text-cyan-400 hover:text-cyan-300 bg-cyan-500/10 hover:bg-cyan-500/20 rounded-md transition-colors whitespace-nowrap ml-2"
                   >
                     {t.inspect}
                   </button>

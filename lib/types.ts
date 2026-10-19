@@ -15,6 +15,7 @@ export interface PersonalInfo {
   status: string;
   birthDate: string;
   nationality: string;
+  jshshir?: string;
 }
 
 export interface EducationInfo {
@@ -26,6 +27,7 @@ export interface EducationInfo {
   period: string;
   studyMode: string;
   studentIdNumber: string;
+  jshshir?: string;
   documentUrl: string;
   description: string;
 }

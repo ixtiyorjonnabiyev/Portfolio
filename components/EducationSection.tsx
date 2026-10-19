@@ -124,11 +124,13 @@ export default function EducationSection({ education, t, onViewDoc }: EducationP
                   </div>
                   <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
                     <span className="text-slate-400">{t.majorLabel}</span>
-                    <span className="font-semibold text-cyan-400 text-right text-[11px]">Iqtisodiyot va ma&apos;lumotlar tahlili</span>
+                    <span className="font-semibold text-cyan-400 text-right text-[11px] max-w-[200px] truncate" title={education.major}>
+                      {education.major}
+                    </span>
                   </div>
                   <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
                     <span className="text-slate-400">{t.groupLabel}</span>
-                    <span className="font-semibold text-white">JED1 &bull; 3-kurs</span>
+                    <span className="font-semibold text-white">{education.studyMode || 'JED1 • 3-kurs'}</span>
                   </div>
                   <div className="flex justify-between items-center py-1 border-b border-slate-800/60">
                     <span className="text-slate-400">{t.docNumLabel}</span>
@@ -136,7 +138,7 @@ export default function EducationSection({ education, t, onViewDoc }: EducationP
                   </div>
                   <div className="flex justify-between items-center py-1">
                     <span className="text-slate-400">{t.pnflLabel}</span>
-                    <span className="font-mono text-slate-300">50910066960026</span>
+                    <span className="font-mono text-amber-300 font-bold">{education.jshshir || "50910066960026"}</span>
                   </div>
                 </div>
 

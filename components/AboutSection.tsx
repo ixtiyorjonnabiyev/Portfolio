@@ -80,14 +80,22 @@ export default function AboutSection({ personal, t, onViewDoc }: AboutSectionPro
             </div>
 
             {/* Quick Fact Badges */}
-            <div className="grid grid-cols-2 gap-3 pt-1">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
               <div className="p-3.5 rounded-xl bg-slate-950/50 border border-slate-800 text-xs">
                 <span className="text-slate-400 block mb-0.5">{t.dobLabel}</span>
-                <span className="font-semibold text-white">09.10.2006</span>
+                <span className="font-semibold text-white">{personal.birthDate || "09.10.2006"}</span>
               </div>
               <div className="p-3.5 rounded-xl bg-slate-950/50 border border-slate-800 text-xs">
                 <span className="text-slate-400 block mb-0.5">{t.originLabel}</span>
-                <span className="font-semibold text-white">{t.originVal}</span>
+                <span className="font-semibold text-white">{personal.location || t.originVal}</span>
+              </div>
+              <div className="p-3.5 rounded-xl bg-slate-950/50 border border-slate-800 text-xs">
+                <span className="text-slate-400 block mb-0.5">Guvohnoma (ID)</span>
+                <span className="font-mono font-bold text-amber-400">514241100433</span>
+              </div>
+              <div className="p-3.5 rounded-xl bg-slate-950/50 border border-slate-800 text-xs">
+                <span className="text-slate-400 block mb-0.5">JShShIR (PINFL)</span>
+                <span className="font-mono font-bold text-amber-300">{personal.jshshir || "50910066960026"}</span>
               </div>
             </div>
           </div>

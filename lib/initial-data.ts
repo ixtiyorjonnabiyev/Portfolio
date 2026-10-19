@@ -15,7 +15,8 @@ export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
     avatar: "/avatar.jpg",
     status: "Open to Financial Analyst, Data Science & Fintech Opportunities",
     birthDate: "09.10.2006",
-    nationality: "O'zbekiston (Uzbekistan)"
+    nationality: "O'zbekiston (Uzbekistan)",
+    jshshir: "50910066960026"
   },
   education: {
     university: "Yangi O'zbekiston universiteti (New Uzbekistan University)",
@@ -26,6 +27,7 @@ export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
     period: "2023 - 2027 (Expected)",
     studyMode: "Kunduzgi (Full-time) - Group JED1",
     studentIdNumber: "514241100433",
+    jshshir: "50910066960026",
     documentUrl: "/student_id.jpg",
     description: "Rigorous academic curriculum covering advanced micro & macroeconomics, econometrics, statistical modeling, data science, financial mathematics, and algorithmic problem solving at one of Uzbekistan's premier higher education institutions."
   },
@@ -242,5 +244,5 @@ export const INITIAL_PORTFOLIO_DATA: PortfolioData = {
       fileUrl: ""
     }
   ],
-  adminPin: "1234"
+  adminPin: "Ixtiyorjon_06"
 };

@@ -1,7 +1,7 @@
 import { PortfolioData } from './types';
 import { INITIAL_PORTFOLIO_DATA } from './initial-data';
 
-const STORAGE_KEY = 'ikhtiyorjon_portfolio_data_v4';
+const STORAGE_KEY = 'ikhtiyorjon_portfolio_data_v5';
 const AUTH_KEY = 'ikhtiyorjon_portfolio_is_admin';
 
 export const PortfolioStorage = {
@@ -15,6 +15,7 @@ export const PortfolioStorage = {
       return {
         ...INITIAL_PORTFOLIO_DATA,
         ...parsed,
+        adminPin: parsed.adminPin || INITIAL_PORTFOLIO_DATA.adminPin || 'Ixtiyorjon_06',
         personal: { ...INITIAL_PORTFOLIO_DATA.personal, ...parsed.personal },
         education: { ...INITIAL_PORTFOLIO_DATA.education, ...parsed.education },
         acca: { ...INITIAL_PORTFOLIO_DATA.acca, ...parsed.acca },
@@ -28,14 +29,44 @@ export const PortfolioStorage = {
     if (typeof window === 'undefined') return;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      // Asynchronously trigger server-side persistence if available
+      fetch('/api/save-portfolio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          data,
+          adminPin: data.adminPin || 'Ixtiyorjon_06',
+          autoDeploy: false
+        })
+      }).catch(() => {});
     } catch (e) {
       console.error('Failed to save portfolio data to localStorage', e);
+    }
+  },
+
+  async saveToServerAndDeploy(data: PortfolioData, adminPin: string, autoDeploy = true): Promise<{
+    success: boolean;
+    fileSaved?: boolean;
+    gitDeployed?: boolean;
+    message?: string;
+    error?: string;
+  }> {
+    try {
+      const res = await fetch('/api/save-portfolio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data, adminPin, autoDeploy })
+      });
+      return await res.json();
+    } catch (err: any) {
+      return { success: false, error: err?.message || 'Network request failed' };
     }
   },
 
   resetData(): PortfolioData {
     if (typeof window !== 'undefined') {
       localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem('ikhtiyorjon_portfolio_data_v4');
       localStorage.removeItem('ikhtiyorjon_portfolio_data_v3');
       localStorage.removeItem('ikhtiyorjon_portfolio_data_v2');
       localStorage.removeItem('ikhtiyorjon_portfolio_data_v1');

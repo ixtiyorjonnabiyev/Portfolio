@@ -37,16 +37,23 @@ export default function ProjectsSection({ projects, t }: ProjectsSectionProps) {
       });
 
   const featuredProjects = projects.filter(p => p.featured);
-  const [selectedFlagshipId, setSelectedFlagshipId] = useState<string>(
-    featuredProjects[0]?.id || projects[0]?.id || ''
-  );
 
-  const flagship = projects.find(p => p.id === selectedFlagshipId) || featuredProjects[0] || projects[0];
+  // In 'all' view, showcase both Finance and AEGIS flagship platforms
+  const showcaseProjects = selectedFilter === 'all'
+    ? featuredProjects
+    : featuredProjects.filter(p => {
+        const cat = p.category.toLowerCase();
+        const sel = selectedFilter.toLowerCase();
+        if (sel.includes('data science') && (cat.includes('data science') || cat.includes('risk') || cat.includes('analytics'))) return true;
+        if (sel.includes('fintech') && cat.includes('fintech')) return true;
+        if (sel.includes('economics') && (cat.includes('economics') || cat.includes('data science'))) return true;
+        return cat.includes(sel);
+      });
 
-  // In 'all' view, grid shows other projects, in category view it shows matching projects
+  // Non-showcase projects rendered in secondary grid
   const gridProjects = selectedFilter === 'all'
-    ? projects.filter(p => p.id !== flagship?.id)
-    : filteredProjects;
+    ? projects.filter(p => !p.featured)
+    : filteredProjects.filter(p => !showcaseProjects.some(sp => sp.id === p.id));
 
   return (
     <section id="projects" className="py-20 relative bg-slate-900/30 border-t border-slate-800">
@@ -85,36 +92,12 @@ export default function ProjectsSection({ projects, t }: ProjectsSectionProps) {
           </div>
         </div>
 
-        {/* Flagship Platform Selector Tabs (if multiple featured) */}
-        {featuredProjects.length > 1 && (
-          <div className="flex flex-wrap items-center gap-2.5 mb-5">
-            <span className="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider mr-1 flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5 text-cyan-400" />
-              Featured Deployments:
-            </span>
-            {featuredProjects.map((fp) => {
-              const isSelected = flagship?.id === fp.id;
-              return (
-                <button
-                  key={fp.id}
-                  onClick={() => setSelectedFlagshipId(fp.id)}
-                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                    isSelected
-                      ? 'bg-gradient-to-r from-cyan-500 to-emerald-400 text-slate-950 shadow-md shadow-cyan-500/20'
-                      : 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700'
-                  }`}
-                >
-                  <Sparkles className={`w-3.5 h-3.5 ${isSelected ? 'text-slate-950' : 'text-cyan-400'}`} />
-                  <span>{fp.id === 'moliya-app' ? 'Moliya Enterprise ERP' : fp.id === 'aegis-risk-os' ? 'AEGIS Risk OS' : fp.title}</span>
-                </button>
-              );
-            })}
-          </div>
-        )}
-
-        {/* Featured Project Showcase Card */}
-        {flagship && (
-          <div className="mb-12 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border-2 border-cyan-500/40 p-6 sm:p-8 lg:p-10 shadow-2xl relative overflow-hidden group">
+        {/* Featured Flagship Deployments Showcase */}
+        {showcaseProjects.map((flagship) => (
+          <div 
+            key={flagship.id}
+            className="mb-10 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border-2 border-cyan-500/40 hover:border-cyan-400/70 p-6 sm:p-8 lg:p-10 shadow-2xl relative overflow-hidden group transition-all"
+          >
             <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
             
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
@@ -127,6 +110,16 @@ export default function ProjectsSection({ projects, t }: ProjectsSectionProps) {
                   <span className="px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 text-xs font-medium">
                     {flagship.category}
                   </span>
+                  {flagship.id === 'aegis-risk-os' && (
+                    <span className="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 text-xs font-semibold border border-emerald-500/30">
+                      Institutional Risk OS
+                    </span>
+                  )}
+                  {flagship.id === 'moliya-app' && (
+                    <span className="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 text-xs font-semibold border border-emerald-500/30">
+                      Enterprise ERP
+                    </span>
+                  )}
                 </div>
 
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
@@ -193,7 +186,7 @@ export default function ProjectsSection({ projects, t }: ProjectsSectionProps) {
                   <div className="rounded-2xl bg-slate-950 border border-slate-800 p-5 shadow-inner space-y-4">
                     <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                       <span className="text-xs font-mono text-cyan-400">aegis-risk-os &bull; v2.4</span>
-                      <span className="text-[10px] bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded font-semibold">Live System</span>
+                      <span className="text-[10px] bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded font-semibold border border-emerald-500/30">Institutional Live System</span>
                     </div>
 
                     <div className="space-y-2 text-xs">
@@ -212,14 +205,14 @@ export default function ProjectsSection({ projects, t }: ProjectsSectionProps) {
                     </div>
 
                     <div className="p-3 rounded-lg bg-gradient-to-r from-cyan-950/40 via-emerald-950/30 to-slate-900 border border-cyan-500/20 text-[11px] text-cyan-300 leading-snug">
-                      ✓ Institutional risk operating system featuring parametric VaR, macro crisis replay (2008 Lehman, COVID-19), OMS trading simulation &amp; UCITS compliance.
+                      ✓ Institutional quantitative risk engine featuring parametric VaR, macro stress simulations (2008 Lehman, COVID-19), OMS trading simulation &amp; UCITS mandate compliance.
                     </div>
                   </div>
-                ) : (
+                ) : flagship.id === 'moliya-app' ? (
                   <div className="rounded-2xl bg-slate-950 border border-slate-800 p-5 shadow-inner space-y-4">
                     <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                       <span className="text-xs font-mono text-cyan-400">moliya-app &bull; v1.0</span>
-                      <span className="text-[10px] bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded font-semibold">Production Ready</span>
+                      <span className="text-[10px] bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded font-semibold border border-emerald-500/30">Production Ready</span>
                     </div>
 
                     <div className="space-y-2 text-xs">
@@ -241,12 +234,20 @@ export default function ProjectsSection({ projects, t }: ProjectsSectionProps) {
                       {t.highlightNote}
                     </div>
                   </div>
+                ) : (
+                  <div className="rounded-2xl bg-slate-950 border border-slate-800 p-5 shadow-inner space-y-4">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <span className="text-xs font-mono text-cyan-400">{flagship.id}</span>
+                      <span className="text-[10px] bg-cyan-500/15 text-cyan-400 px-2 py-0.5 rounded font-semibold">Featured</span>
+                    </div>
+                    <p className="text-xs text-slate-300">{flagship.summary}</p>
+                  </div>
                 )}
               </div>
 
             </div>
           </div>
-        )}
+        ))}
 
         {/* Other Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

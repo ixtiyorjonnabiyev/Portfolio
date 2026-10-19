@@ -23,7 +23,9 @@ import {
   Award, 
   FolderGit2, 
   Wrench, 
-  Shield 
+  Shield,
+  Code2,
+  Rocket
 } from 'lucide-react';
 
 interface OwnerEditorModalProps {
@@ -53,6 +55,9 @@ export default function OwnerEditorModal({
   const [formData, setFormData] = useState<PortfolioData>(data);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
+  const [isDeploying, setIsDeploying] = useState(false);
+  const [serverMessage, setServerMessage] = useState<string | null>(null);
+
   // Sync formData when data changes or modal opens
   React.useEffect(() => {
     setFormData(data);
@@ -63,7 +68,7 @@ export default function OwnerEditorModal({
   // Handle PIN verification
   const handleUnlock = (e: React.FormEvent) => {
     e.preventDefault();
-    if (pinInput.trim() === (data.adminPin || '1234')) {
+    if (pinInput.trim() === (data.adminPin || 'Ixtiyorjon_06')) {
       onAdminAuthChange(true);
       PortfolioStorage.setAdminAuthenticated(true);
       setPinError(false);
@@ -73,11 +78,46 @@ export default function OwnerEditorModal({
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async (autoDeploy = false) => {
+    setIsDeploying(true);
+    setServerMessage(autoDeploy ? 'Saving to disk & pushing to GitHub / Vercel...' : 'Saving changes to disk...');
     onSaveData(formData);
     PortfolioStorage.saveData(formData);
-    setSaveSuccess(true);
-    setTimeout(() => setSaveSuccess(false), 2500);
+    
+    try {
+      const res = await PortfolioStorage.saveToServerAndDeploy(
+        formData, 
+        formData.adminPin || 'Ixtiyorjon_06', 
+        autoDeploy
+      );
+      if (res.success) {
+        setServerMessage(res.message || (autoDeploy ? 'Deployed to GitHub and Vercel successfully!' : 'Saved to lib/initial-data.ts!'));
+        setSaveSuccess(true);
+      } else {
+        setServerMessage(res.message || 'Saved to browser storage.');
+        setSaveSuccess(true);
+      }
+    } catch {
+      setServerMessage('Saved in browser storage.');
+      setSaveSuccess(true);
+    } finally {
+      setIsDeploying(false);
+      setTimeout(() => {
+        setSaveSuccess(false);
+        setServerMessage(null);
+      }, 5000);
+    }
+  };
+
+  const handleDownloadInitialDataTs = () => {
+    const tsCode = `import { PortfolioData } from './types';\n\nexport const INITIAL_PORTFOLIO_DATA: PortfolioData = ${JSON.stringify(formData, null, 2)};\n`;
+    const blob = new Blob([tsCode], { type: 'text/typescript' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'initial-data.ts';
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   const handleResetToDefault = () => {
@@ -375,6 +415,48 @@ export default function OwnerEditorModal({
                     </div>
                   </div>
 
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-slate-300">Date of Birth</label>
+                      <input
+                        type="text"
+                        value={formData.personal.birthDate || ''}
+                        onChange={(e) => setFormData({
+                          ...formData,
+                          personal: { ...formData.personal, birthDate: e.target.value }
+                        })}
+                        className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:border-cyan-400"
+                        placeholder="09.10.2006"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-slate-300">Nationality / Country</label>
+                      <input
+                        type="text"
+                        value={formData.personal.nationality || ''}
+                        onChange={(e) => setFormData({
+                          ...formData,
+                          personal: { ...formData.personal, nationality: e.target.value }
+                        })}
+                        className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:border-cyan-400"
+                        placeholder="O'zbekiston (Uzbekistan)"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-slate-300">JShShIR (PINFL)</label>
+                      <input
+                        type="text"
+                        value={formData.personal.jshshir || ''}
+                        onChange={(e) => setFormData({
+                          ...formData,
+                          personal: { ...formData.personal, jshshir: e.target.value }
+                        })}
+                        className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-amber-300 font-mono text-xs focus:border-cyan-400"
+                        placeholder="50910066960026"
+                      />
+                    </div>
+                  </div>
+
                   <div className="space-y-1">
                     <label className="text-xs font-medium text-slate-300">Availability Status Badge</label>
                     <input
@@ -467,7 +549,20 @@ export default function OwnerEditorModal({
                           ...formData,
                           education: { ...formData.education, studentIdNumber: e.target.value }
                         })}
-                        className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:border-cyan-400"
+                        className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-amber-400 font-mono text-xs focus:border-cyan-400"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-slate-300">JShShIR (PINFL)</label>
+                      <input
+                        type="text"
+                        value={formData.education.jshshir || ''}
+                        onChange={(e) => setFormData({
+                          ...formData,
+                          education: { ...formData.education, jshshir: e.target.value }
+                        })}
+                        className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-amber-300 font-mono text-xs focus:border-cyan-400"
+                        placeholder="50910066960026"
                       />
                     </div>
                   </div>
@@ -863,6 +958,15 @@ export default function OwnerEditorModal({
                         <Download className="w-3.5 h-3.5" />
                         <span>Export Backup JSON</span>
                       </button>
+
+                      <button
+                        onClick={handleDownloadInitialDataTs}
+                        className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300 border border-slate-700 font-semibold text-xs flex items-center gap-2 transition-colors"
+                        title="Download exact TypeScript file for your project repository"
+                      >
+                        <Code2 className="w-3.5 h-3.5" />
+                        <span>Download updated initial-data.ts</span>
+                      </button>
                       
                       <label className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-400 border border-slate-700 font-semibold text-xs flex items-center gap-2 cursor-pointer transition-colors">
                         <Upload className="w-3.5 h-3.5" />
@@ -899,7 +1003,7 @@ export default function OwnerEditorModal({
             </div>
 
             {/* Modal Bottom Footer Actions */}
-            <div className="flex items-center justify-between px-6 py-4 border-t border-slate-800 bg-slate-950/80">
+            <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 border-t border-slate-800 bg-slate-950/80">
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => {
@@ -910,13 +1014,13 @@ export default function OwnerEditorModal({
                   className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-semibold border border-slate-800 transition-colors flex items-center gap-1.5"
                 >
                   <Lock className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Lock & Return to Visitor View</span>
+                  <span>Lock View</span>
                 </button>
 
-                {saveSuccess && (
+                {serverMessage && (
                   <span className="text-xs font-semibold text-emerald-400 flex items-center gap-1 animate-fade-in">
-                    <CheckCircle2 className="w-4 h-4" />
-                    <span>Saved to your browser storage!</span>
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <span>{serverMessage}</span>
                   </span>
                 )}
               </div>
@@ -929,11 +1033,20 @@ export default function OwnerEditorModal({
                   Close
                 </button>
                 <button
-                  onClick={handleSave}
-                  className="px-6 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 font-bold text-xs hover:brightness-110 shadow-md shadow-cyan-500/20 flex items-center gap-2 transition-all"
+                  onClick={() => handleSave(false)}
+                  disabled={isDeploying}
+                  className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs border border-slate-700 flex items-center gap-1.5 transition-all"
                 >
-                  <Save className="w-4 h-4" />
-                  <span>Save All Changes</span>
+                  <Save className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Save Locally</span>
+                </button>
+                <button
+                  onClick={() => handleSave(true)}
+                  disabled={isDeploying}
+                  className="px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 font-bold text-xs hover:brightness-110 shadow-md shadow-cyan-500/20 flex items-center gap-2 transition-all disabled:opacity-50"
+                >
+                  <Rocket className="w-3.5 h-3.5" />
+                  <span>{isDeploying ? 'Deploying...' : 'Save & Deploy to GitHub / Vercel'}</span>
                 </button>
               </div>
             </div>
